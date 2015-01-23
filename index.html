@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Datapackages : course project">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Datapackages</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/marianmunz/datapackages">View on GitHub</a>
+
+          <h1 id="project_title">Datapackages</h1>
+          <h2 id="project_tagline">course project</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/marianmunz/datapackages/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/marianmunz/datapackages/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="stock-charts" class="anchor" href="#stock-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stock Charts</h1>
+
+<p>author: Marian Munz
+date: <code>r date()</code></p>
+
+<h1>
+<a id="-why-stock-charts" class="anchor" href="#-why-stock-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a> Why Stock Charts</h1>
+
+<p>A stock chart helps to take a quick look at a stock symbol's daily<br>
+performance by displaying the opening, high, low and closing<br>
+prices over a time interval that is selected by the user.<br>
+As we will see in the video on the 5th slide, a candlestick chart<br>
+can help to create trading/investing ideas.</p>
+
+<p>A user:</p>
+
+<ul>
+<li>Enters a <em>stock symbol</em>
+</li>
+<li>Enters a <em>date interval</em> (i.e.,a from date and a to date)</li>
+<li>Submits the selections by <em>clicking on the button</em> named <strong>Get stock chart</strong>
+</li>
+</ul>
+
+<h1>
+<a id="example-stock-chart-for-apple-inc" class="anchor" href="#example-stock-chart-for-apple-inc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: stock chart for Apple, Inc.</h1>
+
+<p>From January 1, 2015 to current date:  </p>
+
+<div class="highlight highlight-r"><pre>library(<span class="pl-vo">quantmod</span>)
+<span class="pl-c">#get the data from yahoo based on the inputs  </span>
+<span class="pl-c">#inputsymb &lt;- "AAPL"</span>
+  <span class="pl-vo">data</span> <span class="pl-k">&lt;-</span> getSymbols(<span class="pl-s1"><span class="pl-pds">"</span>AAPL<span class="pl-pds">"</span></span>, <span class="pl-v">src</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>yahoo<span class="pl-pds">"</span></span>, 
+               <span class="pl-v">from</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>2015-01-01<span class="pl-pds">"</span></span>,
+               <span class="pl-v">to</span> <span class="pl-k">=</span> as.character(Sys.Date()),
+               <span class="pl-v">auto.assign</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)
+
+<span class="pl-c">#output the stock chart based on stock symbol data from yahoo  </span>
+
+    chartSeries(<span class="pl-vo">data</span>, <span class="pl-v">theme</span> <span class="pl-k">=</span> chartTheme(<span class="pl-s1"><span class="pl-pds">"</span>white<span class="pl-pds">"</span></span>), 
+                <span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>candlestick<span class="pl-pds">"</span></span>, <span class="pl-v">TA</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>NULL<span class="pl-pds">'</span></span>)
+   <span class="pl-c">#plotOutput("outputplot")</span></pre></div>
+
+<h1>
+<a id="example-stock-chart-for-apple-inccont" class="anchor" href="#example-stock-chart-for-apple-inccont" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: stock chart for Apple, Inc.(cont.)</h1>
+
+<p>We can also add a chart indicating the daily trading volume at the bottom.  </p>
+
+<div class="highlight highlight-r"><pre>library(<span class="pl-vo">quantmod</span>)
+<span class="pl-c">#get the data from yahoo based on the inputs  </span>
+<span class="pl-c">#inputsymb &lt;- "AAPL"</span>
+  <span class="pl-vo">data</span> <span class="pl-k">&lt;-</span> getSymbols(<span class="pl-s1"><span class="pl-pds">"</span>AAPL<span class="pl-pds">"</span></span>, <span class="pl-v">src</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>yahoo<span class="pl-pds">"</span></span>, 
+               <span class="pl-v">from</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>2015-01-01<span class="pl-pds">"</span></span>,
+               <span class="pl-v">to</span> <span class="pl-k">=</span> as.character(Sys.Date()),
+               <span class="pl-v">auto.assign</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)
+
+<span class="pl-c">#output the stock chart based on stock symbol data from yahoo  </span>
+
+    chartSeries(<span class="pl-vo">data</span>, <span class="pl-v">theme</span> <span class="pl-k">=</span> chartTheme(<span class="pl-s1"><span class="pl-pds">"</span>white<span class="pl-pds">"</span></span>), 
+                <span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>candlestick<span class="pl-pds">"</span></span>, <span class="pl-v">TA</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>addVo()<span class="pl-pds">'</span></span>)
+   <span class="pl-c">#plotOutput("outputplot")</span></pre></div>
+
+<h1>
+<a id="candlestick-chart-" class="anchor" href="#candlestick-chart-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Candlestick chart </h1>
+
+<p>The image below describes the elements of the Candlestick chart:<br>
+<img src="img1.jpeg" alt="title"></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Datapackages maintained by <a href="https://github.com/marianmunz">marianmunz</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
